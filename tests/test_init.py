@@ -330,3 +330,17 @@ async def test_play_media_video_needs_url(
             },
             blocking=True,
         )
+
+
+async def test_speaker_scan_right_after_boot(
+    hass: HomeAssistant, mock_scan, mock_atv
+) -> None:
+    """The first speaker scan runs even when the host has only just booted."""
+    _with_homepod(mock_scan)
+    mock_atv.power.power_state = PowerState.On
+    with patch(
+        "custom_components.apple_homeview.speakers.time.monotonic", return_value=5.0
+    ):
+        await _setup(hass)
+    state = hass.states.get(ENTITY_ID)
+    assert state.attributes["available_airplay_speakers"] == ["Study HomePod"]

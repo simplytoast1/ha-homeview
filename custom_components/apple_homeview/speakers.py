@@ -38,7 +38,9 @@ class SpeakerDirectory:
         """Initialize the directory."""
         self.hass = hass
         self._speakers: dict[str, AirPlaySpeaker] = {}
-        self._updated = 0.0
+        # None means never scanned. A monotonic clock can be smaller than
+        # REFRESH_INTERVAL right after the host boots, so 0.0 is not safe.
+        self._updated: float | None = None
         self._lock = asyncio.Lock()
 
     @property
@@ -49,7 +51,11 @@ class SpeakerDirectory:
     async def async_refresh(self, force: bool = False) -> None:
         """Scan the network for AirPlay receivers if the cache is stale."""
         async with self._lock:
-            if not force and time.monotonic() - self._updated < REFRESH_INTERVAL:
+            if (
+                not force
+                and self._updated is not None
+                and time.monotonic() - self._updated < REFRESH_INTERVAL
+            ):
                 return
             try:
                 confs = await async_scan_device(self.hass, timeout=SCAN_TIMEOUT)

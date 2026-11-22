@@ -566,6 +566,8 @@ class HomeViewMediaPlayer(
         if not self._is_available(FeatureName.OutputDevices):
             return None
         in_group = {d.identifier.upper() for d in self.atv.audio.output_devices}
+        if self._own_output_id:
+            in_group.add(self._own_output_id)
         return {
             "airplay_speakers": [
                 device.name or device.identifier
