@@ -1,0 +1,59 @@
+add_speakers:
+  target:
+    entity:
+      integration: apple_homeview
+      domain: media_player
+  fields:
+    speakers:
+      required: true
+      example: ["Study HomePod", "media_player.living_room_homepod"]
+      selector:
+        text:
+          multiple: true
+
+remove_speakers:
+  target:
+    entity:
+      integration: apple_homeview
+      domain: media_player
+  fields:
+    speakers:
+      required: true
+      example: ["Study HomePod"]
+      selector:
+        text:
+          multiple: true
+
+set_speakers:
+  target:
+    entity:
+      integration: apple_homeview
+      domain: media_player
+  fields:
+    speakers:
+      required: true
+      example: ["Study HomePod", "Bedroom HomePod"]
+      selector:
+        text:
+          multiple: true
+
+set_speaker_volume:
+  target:
+    entity:
+      integration: apple_homeview
+      domain: media_player
+  fields:
+    speaker:
+      required: true
+      example: "Study HomePod"
+      selector:
+        text:
+    volume_level:
+      required: true
+      example: 0.4
+      selector:
+        number:
+          min: 0
+          max: 1
+          step: 0.01
+          mode: slider

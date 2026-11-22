@@ -1,0 +1,126 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Add an Apple HomeView",
+        "description": "Found {count} HomeView(s) that are not set up yet. Pick one, or type its IP address or hostname.",
+        "data": {
+          "device": "HomeView",
+          "address": "IP address or hostname"
+        }
+      },
+      "confirm": {
+        "title": "Set up {name}?",
+        "description": "Home Assistant found the {model} called {name}. Next, a 4-digit PIN appears on its screen. Stand where you can see it before you continue."
+      },
+      "reauth_confirm": {
+        "title": "Pair {name} again",
+        "description": "{name} no longer accepts the stored pairing. Continue to show a new PIN on its screen."
+      },
+      "pair": {
+        "title": "Enter the PIN from {name}",
+        "description": "Type the 4-digit PIN now showing on the {name} screen. If the screen is asleep, tap it to wake it.",
+        "data": {
+          "pin": "PIN"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the HomeView. Check that it is powered on and on the same network as Home Assistant.",
+      "not_homeview": "That device is not an Apple HomeView. Use the built-in Apple TV integration for Apple TV and HomePod.",
+      "no_selection": "Pick a HomeView or enter an address.",
+      "invalid_pin": "That PIN was not accepted. A new PIN is now on the screen; enter that one.",
+      "backoff": "The HomeView is blocking pairing after too many attempts. Wait about {retry_after} seconds, or restart the HomeView, then try again.",
+      "pairing_rejected": "The HomeView refused to pair. Make sure it is not pairing with another device, and that Allow Access for Speakers and TV in the Home app is not set to only people sharing this home.",
+      "pairing_failed": "Pairing failed. A new PIN is now on the screen; try again."
+    },
+    "abort": {
+      "already_configured": "This HomeView is already set up.",
+      "already_in_progress": "Setup for this HomeView is already in progress.",
+      "not_homeview": "This device is not an Apple HomeView.",
+      "cannot_connect": "Could not reach the HomeView.",
+      "ipv6_not_supported": "IPv6 addresses are not supported.",
+      "reauth_successful": "The HomeView is paired again."
+    }
+  },
+  "entity": {
+    "remote": {
+      "remote": {
+        "name": "Remote"
+      }
+    }
+  },
+  "exceptions": {
+    "not_connected": {
+      "message": "The HomeView is not connected."
+    },
+    "command_failed": {
+      "message": "The HomeView did not accept the command: {error}"
+    },
+    "cannot_play": {
+      "message": "This media cannot be played on a HomeView. Use an audio or video URL, TTS, or a Home Assistant media source."
+    },
+    "unknown_command": {
+      "message": "Unknown remote command {command}. Valid commands: {valid}"
+    },
+    "unknown_speaker": {
+      "message": "No AirPlay speaker matches {speaker}. Speakers found on the network: {available}"
+    },
+    "speaker_not_in_group": {
+      "message": "{speaker} is not in this HomeView's AirPlay group. Add it first."
+    },
+    "video_needs_url": {
+      "message": "Video must be an http or https URL that the HomeView can reach."
+    },
+    "video_failed": {
+      "message": "The HomeView did not start the video: {error}"
+    }
+  },
+  "services": {
+    "add_speakers": {
+      "name": "Add AirPlay speakers",
+      "description": "Play this HomeView's audio on more AirPlay speakers too, such as HomePods.",
+      "fields": {
+        "speakers": {
+          "name": "Speakers",
+          "description": "AirPlay speaker names as they appear in the AirPlay menu (for example Study HomePod), or media_player entity ids."
+        }
+      }
+    },
+    "remove_speakers": {
+      "name": "Remove AirPlay speakers",
+      "description": "Stop playing this HomeView's audio on some AirPlay speakers.",
+      "fields": {
+        "speakers": {
+          "name": "Speakers",
+          "description": "AirPlay speaker names as they appear in the AirPlay menu (for example Study HomePod), or media_player entity ids."
+        }
+      }
+    },
+    "set_speakers": {
+      "name": "Set AirPlay speakers",
+      "description": "Play this HomeView's audio on exactly these speakers, plus the HomeView itself. An empty list plays on the HomeView only.",
+      "fields": {
+        "speakers": {
+          "name": "Speakers",
+          "description": "AirPlay speaker names as they appear in the AirPlay menu (for example Study HomePod), or media_player entity ids."
+        }
+      }
+    },
+    "set_speaker_volume": {
+      "name": "Set AirPlay speaker volume",
+      "description": "Change the volume of one speaker in this HomeView's AirPlay group.",
+      "fields": {
+        "speaker": {
+          "name": "Speaker",
+          "description": "Speaker name or media_player entity id."
+        },
+        "volume_level": {
+          "name": "Volume",
+          "description": "Volume from 0 to 1."
+        }
+      }
+    }
+  }
+}
