@@ -23,7 +23,9 @@ async def _setup(hass: HomeAssistant) -> MockConfigEntry:
     entry = MockConfigEntry(domain=DOMAIN, unique_id=DEVICE_ID, data=EXPECTED_DATA)
     entry.add_to_hass(hass)
     await hass.config_entries.async_setup(entry.entry_id)
-    await hass.async_block_till_done()
+    # The AirPlay speaker scan runs as a background task; wait for it too so
+    # attribute checks do not depend on timing.
+    await hass.async_block_till_done(wait_background_tasks=True)
     return entry
 
 
