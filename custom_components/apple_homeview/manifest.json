@@ -1,6 +1,10 @@
 {
   "domain": "apple_homeview",
   "name": "Apple HomeView",
+  "categories": [
+    "media_entertainment.speakers_audio",
+    "media_entertainment.tv_streaming"
+  ],
   "codeowners": ["@simplytoast1"],
   "config_flow": true,
   "dependencies": ["zeroconf", "media_source"],
